@@ -2,6 +2,7 @@
 
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,3 +32,18 @@ Route::get('/lista-usuarios', function () {
 })->name('lista-usuarios');
 
 Route::view('/cadastra-usuario','cadastraUsuarios');
+
+Route::post('/salva-usuario',function(Request $request){
+
+    $usuario = new User ();
+    $usuario->usuario=$request->input('usuario');
+    $usuario->email=$request->input('email');
+    $usuario->bio=$request->input('bio');
+    $usuario->nome=$request->input('nome');
+    $usuario->senha=$request->input('senha');
+    $usuario->save();
+
+    return"Salvo com sucesso!";
+
+})->name('salva-usuario');
+
